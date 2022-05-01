@@ -29,6 +29,10 @@ public class Tickets extends JFrame implements ActionListener {
 	JMenuItem mnuItemExit;
 	JMenuItem mnuItemUpdate;
 	JMenuItem mnuItemDelete;
+	JMenuItem mnuItemUpdateUsr;
+	JMenuItem mnuItemDeleteUsr;
+	JMenuItem mnuItemOpenUsr;
+	JMenuItem mnuItemViewUsr;
 	JMenuItem mnuItemOpenTicket;
 	JMenuItem mnuItemViewTicket;
 
@@ -58,6 +62,26 @@ public class Tickets extends JFrame implements ActionListener {
 		mnuItemDelete = new JMenuItem("Delete Ticket");
 		// add to Admin main menu item
 		mnuAdmin.add(mnuItemDelete);
+		
+		// initialize third sub menu items for Admin main menu
+		mnuItemUpdateUsr = new JMenuItem("Update User");
+		// add to Admin main menu item
+		mnuAdmin.add(mnuItemUpdateUsr);
+
+		// initialize fourth sub menu items for Admin main menu
+		mnuItemDeleteUsr = new JMenuItem("Delete User");
+		// add to Admin main menu item
+		mnuAdmin.add(mnuItemDeleteUsr);
+
+		// initialize first sub menu item for Tickets main menu
+		mnuItemOpenUsr = new JMenuItem("Open User");
+		// add to Ticket Main menu item
+		mnuTickets.add(mnuItemOpenUsr);
+
+		// initialize second sub menu item for Tickets main menu
+		mnuItemViewUsr = new JMenuItem("View User");
+		// add to Ticket Main menu item
+		mnuTickets.add(mnuItemViewUsr);
 
 		// initialize first sub menu item for Tickets main menu
 		mnuItemOpenTicket = new JMenuItem("Open Ticket");
@@ -77,6 +101,10 @@ public class Tickets extends JFrame implements ActionListener {
 		mnuItemDelete.addActionListener(this);
 		mnuItemOpenTicket.addActionListener(this);
 		mnuItemViewTicket.addActionListener(this);
+		mnuItemUpdateUsr.addActionListener(this);
+		mnuItemDeleteUsr.addActionListener(this);
+		mnuItemOpenUsr.addActionListener(this);
+		mnuItemViewUsr.addActionListener(this);
 
 		 /*
 		  * continue implementing any other desired sub menu items (like 
@@ -137,7 +165,6 @@ public class Tickets extends JFrame implements ActionListener {
 
 			// retrieve all tickets details for viewing in JTable
 			try {
-
 				// Use JTable built in functionality to build a table model and
 				// display the table model off your result set!!!
 				JTable jt = new JTable(ticketsJTable.buildTableModel(dao.readRecords()));
