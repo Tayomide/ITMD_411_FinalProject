@@ -13,38 +13,31 @@ import javax.swing.JPasswordField;
 import javax.swing.JTextField;
 
 @SuppressWarnings("serial")
-public class Login extends JFrame{
-	
+public class Login extends JFrame {
+
 	Dao conn;
-	
+
 	public Login() {
-		
+
+		super("IIT HELP DESK LOGIN");
+		conn = new Dao();
+		conn.createTables();
 		setSize(400, 210);
 		setLayout(new GridLayout(4, 2));
 		setLocationRelativeTo(null); // centers window
-		
-		//DEFINE ELEMENTS
-		JLabel lblUsername;
-		JLabel lblPassword;
-		JLabel lblStatus;
-		
-		JTextField txtUname;
-		JPasswordField txtPassword;
-		
-		JButton btn;
-		JButton btnExit;
-		
-		// INITIALIZE ELEMENTS
-		lblUsername = new JLabel("Username", JLabel.LEFT);
-		lblPassword = new JLabel("Password", JLabel.LEFT);
-		lblStatus = new JLabel(" ", JLabel.CENTER);
-		
-		txtUname = new JTextField(10);
-		txtPassword = new JPasswordField();
-		
-		btn = new JButton("Submit");
-		btnExit = new JButton("Exit");
-		
+
+		// SET UP CONTROLS
+		JLabel lblUsername = new JLabel("Username", JLabel.LEFT);
+		JLabel lblPassword = new JLabel("Password", JLabel.LEFT);
+		JLabel lblStatus = new JLabel(" ", JLabel.CENTER);
+		// JLabel lblSpacer = new JLabel(" ", JLabel.CENTER);
+
+		JTextField txtUname = new JTextField(10);
+
+		JPasswordField txtPassword = new JPasswordField();
+		JButton btn = new JButton("Submit");
+		JButton btnExit = new JButton("Exit");
+
 		// constraints
 
 		lblStatus.setToolTipText("Contact help desk to unlock password");
@@ -59,8 +52,7 @@ public class Login extends JFrame{
 		add(btn);          // 3rd row
 		add(btnExit);
 		add(lblStatus);    // 4th row
-		
-		//ADD FUNCTIONALITY
+
 		btn.addActionListener(new ActionListener() {
 			int count = 0; // count agent
 
@@ -73,7 +65,7 @@ public class Login extends JFrame{
 				String query = "SELECT * FROM jpapa_users WHERE uname = ? and upass = ?;";
 				try (PreparedStatement stmt = conn.getConnection().prepareStatement(query)) {
 					stmt.setString(1, txtUname.getText());
-					stmt.setString(2, String.valueOf(txtPassword.getPassword()));
+					stmt.setString(2, txtPassword.getText());
 					ResultSet rs = stmt.executeQuery();
 					if (rs.next()) {
 						admin = rs.getBoolean("admin"); // get table column value
@@ -89,12 +81,12 @@ public class Login extends JFrame{
 			}
 		});
 		btnExit.addActionListener(e -> System.exit(0));
-		
+
 		setVisible(true); // SHOW THE FRAME
 	}
-	
+
 	public static void main(String[] args) {
-		
+
 		new Login();
 	}
 }
