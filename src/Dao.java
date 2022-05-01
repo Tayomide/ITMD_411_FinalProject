@@ -172,4 +172,30 @@ public class Dao {
 	}
 
 	// continue coding for deleteRecords implementation
+	
+	public int deleteRecords(String ticket_issuer, String ticket_description) {
+		try {
+			statement = getConnection().createStatement();
+			statement.executeUpdate("DELETE FROM jpapa_tickets WHERE ticket_issuer = '" + ticket_issuer + "' AND ticket_description = '" + ticket_description + "'");
+			return 1;
+
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return 0;
+	}
+	
+	public int deleteRecords(int id) {
+		try {
+			statement = getConnection().createStatement();
+			statement.executeUpdate("DELETE FROM jpapa_tickets WHERE ticket_id = " + id);
+			return 1;
+
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return 0;
+	}
 }
