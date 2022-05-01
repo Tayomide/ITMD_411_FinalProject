@@ -15,6 +15,8 @@ import javax.swing.JTextField;
 @SuppressWarnings("serial")
 public class Login extends JFrame{
 	
+	Dao conn;
+	
 	public Login() {
 		
 		setSize(400, 210);
