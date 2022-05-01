@@ -143,6 +143,33 @@ public class Dao {
 		return results;
 	}
 	// continue coding for updateRecords implementation
+	public int updateRecords(String ticket_issuer, String ticket_description, String ticketName, String ticketDesc) {
+		try {
+			statement = getConnection().createStatement();
+			statement.executeUpdate("UPDATE jpapa_tickets SET ticket_issuer = '" + ticketName + "', ticket_description = '" + ticketDesc +
+					"' WHERE ticket_issuer = '" + ticket_issuer + "' AND ticket_description = '" + ticket_description + "'");
+			return 1;
+
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return 0;
+	}
+	
+	public int updateRecords(int id, String ticketName, String ticketDesc) {
+		try {
+			statement = getConnection().createStatement();
+			statement.executeUpdate("UPDATE jpapa_tickets SET ticket_issuer = '" + ticketName + "', ticket_description = '" + ticketDesc +
+					"' WHERE ticket_id = " + id);
+			return 1;
+
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return 0;
+	}
 
 	// continue coding for deleteRecords implementation
 }
