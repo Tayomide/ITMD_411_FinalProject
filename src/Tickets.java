@@ -177,6 +177,82 @@ public class Tickets extends JFrame implements ActionListener {
 				e1.printStackTrace();
 			}
 		}
+		
+		else if (e.getSource() == mnuItemUpdate) {
+			// get ticket information
+			int id1 = 0;
+			String[] options = new String[] {"ID", "(issuer, description)"};
+			int response = JOptionPane.showOptionDialog(null, "Select Row by Id or (issuer, description)",
+		               "Click a button",
+		               JOptionPane.DEFAULT_OPTION, JOptionPane.INFORMATION_MESSAGE, null, options, options[0]);
+			if(response == 0) {
+				String ticket_id = null;
+				int id = -1;
+				while(ticket_id == null && id <= 0) {
+					try {
+						ticket_id = JOptionPane.showInputDialog(null, "Enter the ticket id");
+						id = Integer.parseInt(ticket_id);
+					} catch(Exception e1) {
+						ticket_id = null;
+						id = -1;
+						System.out.println("Id is not an integer");
+					}
+				}
+				String ticketName = JOptionPane.showInputDialog(null, "Edit the name");
+				String ticketDesc = JOptionPane.showInputDialog(null, "Edit the ticket description");
+				id1 = dao.updateRecords(id, ticketName, ticketDesc);
+			}
+			else if(response == 1) {
+				String ticket_issuer = JOptionPane.showInputDialog(null, "Enter the name");
+				String ticket_description = JOptionPane.showInputDialog(null, "Enter the ticket description");
+				String ticketName = JOptionPane.showInputDialog(null, "Edit the name");
+				String ticketDesc = JOptionPane.showInputDialog(null, "Edit the ticket description");
+				id1 = dao.updateRecords(ticket_issuer, ticket_description, ticketName, ticketDesc); 
+			}
+			if (id1 != 0) {
+				System.out.println("Updated successfully!!!");
+				JOptionPane.showMessageDialog(null, "Updated");
+			} else
+				System.out.println("Ticket cannot be updated!!!");
+//			String ticketName = JOptionPane.showInputDialog(null, "Enter your name");
+//			String ticketDesc = JOptionPane.showInputDialog(null, "Enter a ticket description");
+		}
+		
+		else if (e.getSource() == mnuItemDelete) {
+			// get ticket information
+			int id1 = 0;
+			String[] options = new String[] {"ID", "(issuer, description)"};
+			int response = JOptionPane.showOptionDialog(null, "Select Row by Id or (issuer, description)",
+		               "Click a button",
+		               JOptionPane.DEFAULT_OPTION, JOptionPane.INFORMATION_MESSAGE, null, options, options[0]);
+			if(response == 0) {
+				String ticket_id = null;
+				int id = -1;
+				while(ticket_id == null && id <= 0) {
+					try {
+						ticket_id = JOptionPane.showInputDialog(null, "Enter the ticket id");
+						id = Integer.parseInt(ticket_id);
+					} catch(Exception e1) {
+						ticket_id = null;
+						id = -1;
+						System.out.println("Id is not an integer");
+					}
+				}
+				id1 = dao.deleteRecords(id);
+			}
+			else if(response == 1) {
+				String ticket_issuer = JOptionPane.showInputDialog(null, "Enter the name");
+				String ticket_description = JOptionPane.showInputDialog(null, "Enter the ticket description");
+				id1 = dao.deleteRecords(ticket_issuer, ticket_description); 
+			}
+			if (id1 != 0) {
+				System.out.println("Deleted successfully!!!");
+				JOptionPane.showMessageDialog(null, "Deleted");
+			} else
+				System.out.println("Ticket cannot be deleted!!!");
+//			String ticketName = JOptionPane.showInputDialog(null, "Enter your name");
+//			String ticketDesc = JOptionPane.showInputDialog(null, "Enter a ticket description");
+		}
 		/*
 		 * continue implementing any other desired sub menu items (like for update and
 		 * delete sub menus for example) with similar syntax & logic as shown above
