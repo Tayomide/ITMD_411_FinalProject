@@ -65,7 +65,7 @@ public class Login extends JFrame {
 				String query = "SELECT * FROM jpapa_users WHERE uname = ? and upass = ?;";
 				try (PreparedStatement stmt = conn.getConnection().prepareStatement(query)) {
 					stmt.setString(1, txtUname.getText());
-					stmt.setString(2, txtPassword.getText());
+					stmt.setString(2, String.valueOf(txtPassword.getPassword()));
 					ResultSet rs = stmt.executeQuery();
 					if (rs.next()) {
 						admin = rs.getBoolean("admin"); // get table column value
