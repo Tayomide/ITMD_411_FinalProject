@@ -159,7 +159,7 @@ public class Tickets extends JFrame implements ActionListener {
 			String days = "hey";
 			int day = -1;
 			if(ticketName != null && ticketDesc != null) {
-				while(days != null || day < 0) {
+				while(days == null || day < 0) {
 					days = JOptionPane.showInputDialog(null, "Enter the ticket duration in days");
 					try {
 						day = Integer.parseInt(days);
