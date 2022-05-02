@@ -37,8 +37,8 @@ public class Dao {
 
 	public void createTables() {
 		// variables for SQL Query table creations
-		final String createTicketsTable = "CREATE TABLE jpapa2_tickets(ticket_id INT AUTO_INCREMENT PRIMARY KEY, ticket_issuer VARCHAR(30), ticket_description VARCHAR(200), start_date DATE, end_date DATE)";
-		final String createUsersTable = "CREATE TABLE jpapa2_users(uid INT AUTO_INCREMENT PRIMARY KEY, uname VARCHAR(30), upass VARCHAR(30), admin int)";
+		final String createTicketsTable = "CREATE TABLE itomi_tickets(ticket_id INT AUTO_INCREMENT PRIMARY KEY, ticket_issuer VARCHAR(30), ticket_description VARCHAR(200), start_date DATE, end_date DATE)";
+		final String createUsersTable = "CREATE TABLE itomi_users(uid INT AUTO_INCREMENT PRIMARY KEY, uname VARCHAR(30), upass VARCHAR(30), admin int)";
 
 		try {
 
@@ -93,7 +93,7 @@ public class Dao {
 			// and PASS (insert) that data into your User table
 			for (List<String> rowData : array) {
 
-				sql = "insert into jpapa2_users(uname,upass,admin) " + "values('" + rowData.get(0) + "'," + " '"
+				sql = "insert into itomi_users(uname,upass,admin) " + "values('" + rowData.get(0) + "'," + " '"
 						+ rowData.get(1) + "','" + rowData.get(2) + "');";
 				statement.executeUpdate(sql);
 			}
@@ -111,7 +111,7 @@ public class Dao {
 		int id = 0;
 		try {
 			statement = getConnection().createStatement();
-			statement.executeUpdate("Insert into jpapa2_tickets" + "(ticket_issuer, ticket_description, start_date, end_date) values(" + " '"
+			statement.executeUpdate("Insert into itomi_tickets" + "(ticket_issuer, ticket_description, start_date, end_date) values(" + " '"
 					+ ticketName + "','" + ticketDesc + "', NOW(), DATE_SUB(NOW(), INTERVAL -" + days + " DAY))", Statement.RETURN_GENERATED_KEYS);
 
 			// retrieve ticket id number newly auto generated upon record insertion
@@ -135,7 +135,7 @@ public class Dao {
 		ResultSet results = null;
 		try {
 			statement = connect.createStatement();
-			results = statement.executeQuery("SELECT * FROM jpapa2_tickets");
+			results = statement.executeQuery("SELECT * FROM itomi_tickets");
 			//connect.close();
 		} catch (SQLException e1) {
 			e1.printStackTrace();
@@ -146,7 +146,7 @@ public class Dao {
 	public int updateRecords(String ticket_issuer, String ticket_description, String ticketName, String ticketDesc) {
 		try {
 			statement = getConnection().createStatement();
-			statement.executeUpdate("UPDATE jpapa2_tickets SET ticket_issuer = '" + ticketName + "', ticket_description = '" + ticketDesc +
+			statement.executeUpdate("UPDATE itomi_tickets SET ticket_issuer = '" + ticketName + "', ticket_description = '" + ticketDesc +
 					"' WHERE ticket_issuer = '" + ticket_issuer + "' AND ticket_description = '" + ticket_description + "'");
 			return 1;
 
@@ -160,7 +160,7 @@ public class Dao {
 	public int updateRecords(int id, String ticketName, String ticketDesc) {
 		try {
 			statement = getConnection().createStatement();
-			statement.executeUpdate("UPDATE jpapa2_tickets SET ticket_issuer = '" + ticketName + "', ticket_description = '" + ticketDesc +
+			statement.executeUpdate("UPDATE itomi_tickets SET ticket_issuer = '" + ticketName + "', ticket_description = '" + ticketDesc +
 					"' WHERE ticket_id = " + id);
 			return 1;
 
@@ -176,7 +176,7 @@ public class Dao {
 	public int deleteRecords(String ticket_issuer, String ticket_description) {
 		try {
 			statement = getConnection().createStatement();
-			statement.executeUpdate("DELETE FROM jpapa2_tickets WHERE ticket_issuer = '" + ticket_issuer + "' AND ticket_description = '" + ticket_description + "'");
+			statement.executeUpdate("DELETE FROM itomi_tickets WHERE ticket_issuer = '" + ticket_issuer + "' AND ticket_description = '" + ticket_description + "'");
 			return 1;
 
 		} catch (SQLException e) {
@@ -189,7 +189,7 @@ public class Dao {
 	public int deleteRecords(int id) {
 		try {
 			statement = getConnection().createStatement();
-			statement.executeUpdate("DELETE FROM jpapa2_tickets WHERE ticket_id = " + id);
+			statement.executeUpdate("DELETE FROM itomi_tickets WHERE ticket_id = " + id);
 			return 1;
 
 		} catch (SQLException e) {
@@ -204,7 +204,7 @@ public class Dao {
 		ResultSet results = null;
 		try {
 			statement = connect.createStatement();
-			results = statement.executeQuery("SELECT * FROM jpapa2_users");
+			results = statement.executeQuery("SELECT * FROM itomi_users");
 			//connect.close();
 		} catch (SQLException e1) {
 			e1.printStackTrace();
@@ -216,7 +216,7 @@ public class Dao {
 		int id = 0;
 		try {
 			statement = getConnection().createStatement();
-			statement.executeUpdate("Insert into jpapa2_users" + "(uname, upass, admin) values(" + " '"
+			statement.executeUpdate("Insert into itomi_users" + "(uname, upass, admin) values(" + " '"
 					+ uname + "','" + upass + "',0)", Statement.RETURN_GENERATED_KEYS);
 
 			// retrieve ticket id number newly auto generated upon record insertion
@@ -238,7 +238,7 @@ public class Dao {
 	public int updateUsrs(String uname, String upass, String name, String password, String adminlevel) {
 		try {
 			statement = getConnection().createStatement();
-			statement.executeUpdate("UPDATE jpapa2_users SET uname = '" + name + "', upass = '" + password + "', admin = " + adminlevel +
+			statement.executeUpdate("UPDATE itomi_users SET uname = '" + name + "', upass = '" + password + "', admin = " + adminlevel +
 					" WHERE uname = '" + uname + "' AND upass = '" + upass + "'");
 			return 1;
 
@@ -252,7 +252,7 @@ public class Dao {
 	public int updateUsrs(int id, String name, String password, String adminlevel) {
 		try {
 			statement = getConnection().createStatement();
-			statement.executeUpdate("UPDATE jpapa2_users SET uname = '" + name + "', upass = '" + password + "', admin = " + adminlevel +
+			statement.executeUpdate("UPDATE itomi_users SET uname = '" + name + "', upass = '" + password + "', admin = " + adminlevel +
 					" WHERE uid = " + id);
 			return 1;
 
@@ -268,7 +268,7 @@ public class Dao {
 	public int deleteUsrs(String uname, String upass) {
 		try {
 			statement = getConnection().createStatement();
-			statement.executeUpdate("DELETE FROM jpapa2_users WHERE uname = '" + uname + "' AND upass = '" + upass + "'");
+			statement.executeUpdate("DELETE FROM itomi_users WHERE uname = '" + uname + "' AND upass = '" + upass + "'");
 			return 1;
 
 		} catch (SQLException e) {
@@ -281,7 +281,7 @@ public class Dao {
 	public int deleteUsrs(int id) {
 		try {
 			statement = getConnection().createStatement();
-			statement.executeUpdate("DELETE FROM jpapa2_users WHERE uid = " + id);
+			statement.executeUpdate("DELETE FROM itomi_users WHERE uid = " + id);
 			return 1;
 
 		} catch (SQLException e) {
